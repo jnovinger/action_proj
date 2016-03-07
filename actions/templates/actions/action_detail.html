@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>
+    {{ action }}
+
+    {% if not action.completed %}
+      <a href="{% url 'action-edit' pk=action.id %}" type="button" class="btn btn-primary">
+        Edit
+      </a>
+    {% endif %}
+    <a href="{% url 'action-done' pk=action.id %}" type="button" class="btn btn-primary{% if action.completed %} active{% endif %}" title="{% if action.completed %}{{ action.completed }}{% endif %}">
+      Done
+    </a>
+
+    <a href="{% url 'action-delete' pk=action.id %}" type="button" class="btn btn-danger{% if action.deleted %} active{% endif %}">
+      Delete
+    </a>
+  </h2>
+
+  <div class="col-md-8 cold-md-offset-2">
+    <div class="row">
+      {{ action.description }}
+    </div>
+    <div class="row">
+      <h3>Assignment</h3>
+      <div class="col-md-8 cold-md-offset-2">
+        <div class="row">
+          <label>Assigned to:</label> {{ action.assigned_to_pretty }}
+        </div>
+        <div class="row">
+          <label>Assigned date:</label> {{ action.assigned_on }}
+        </div>
+        <div class="row">
+          <label>Due date:</label> {{ action.due }}
+        </div>
+        <div class="row">
+          <label>Completed:</label>
+          {% if action.completed %}
+            {{ action.completed }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Miscellaneous</h3>
+      <div class="col-md-8 cold-md-offset-2">
+        <div class="row">
+          <label>Created:</label> {{ action.created }}
+        </div>
+        <div class="row">
+          <label>Modified:</label> {{ action.modified }}
+        </div>
+        <div class="row">
+          <label>Deleted:</label> {{ action.deleted }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock content %}

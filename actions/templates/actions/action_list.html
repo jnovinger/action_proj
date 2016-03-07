@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <h2 class="sub-header">
+      Actions
+      <a href="{% url 'action-create' %}" type="button" class="btn btn-primary">
+        Create Action
+      </a>
+    </h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Assigned To</th>
+            <th>Due By</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in actions %}
+            <tr class="{% if action.completed %}completed{% endif %}">
+              <td>
+                <a href='{{ action.absolute_url }}'>{{ action }}</a>
+              </td>
+              <td>{{ action.description|truncatewords:7 }}</td>
+              <td>{{ action.assigned_to }}</td>
+              <td>{{ action.due }}</td>
+              <td>
+                <a href="{% url 'action-done' pk=action.id %}" type="button" class="btn btn-primary{% if action.completed %} active{% endif %}" title="{% if action.completed %}{{ action.completed }}{% endif %}">
+                  Done
+                </a>
+
+                <a href="{% url 'action-delete' pk=action.id %}" type="button" class="btn btn-danger">
+                  Delete
+                </a>
+              <td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock content %}

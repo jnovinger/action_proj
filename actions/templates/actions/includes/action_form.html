@@ -1,0 +1,49 @@
+{% csrf_token %}
+{{ form.errors }}
+<div class="form-group">
+  <div>
+    {{ form.name.errors }}
+  </div>
+  {{ form.name.label_tag }}
+  <input type="text"
+         class="form-control"
+         name="{{ form.name.name }}"
+         id="{{ form.name.id_for_label }}"
+         placeholder="Action name"
+         value="{% if form.name.value %}{{ form.name.value }}{% endif %}">
+</div>
+
+<div class="form-group">
+  {{ form.description.label_tag }}
+  <textarea class="form-control"
+            name="{{ form.description.name }}"
+            id="{{ form.description.id_for_label }}">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+</div>
+
+<hr>
+
+<div class="form-group">
+  {{ form.assigned_to.label_tag }}
+  <select class="form-control"
+          name="{{ form.assigned_to.name }}"
+          label="{{ form.assigned_to.id_for_label }}">
+    {% for value, display in form.fields.assigned_to.choices %}
+    <option value="{{ value }}" {% if form.assigned_to.value == value %}selected{% endif %}>{{ display }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="form-group">
+      {{ form.due.label_tag }}
+  <div class="input-group date" data-provide="datepicker">
+      <input type="text"
+             class="form-control"
+             name="{{ form.due.name }}"
+             id="{{ form.due.id_for_label }}"
+             value="{% if form.due.value %}{{ form.due.value }}{% endif %}"
+             placeholder="Due date">
+      <div class="input-group-addon">
+          <span class="glyphicon glyphicon-th"></span>
+      </div>
+  </div>
+</div>
