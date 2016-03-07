@@ -38,7 +38,7 @@ class ActionDoneView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.completed:
+        if obj.completed is None:
             obj.completed = None
         else:
             obj.completed = datetime.now()
